@@ -7,6 +7,9 @@ import com.airtribe.meditrack.service.DoctorService;
 import com.airtribe.meditrack.service.PatientService;
 import com.airtribe.meditrack.entity.Appointment;
 import com.airtribe.meditrack.service.AppointmentService;
+import com.airtribe.meditrack.entity.Bill;
+import com.airtribe.meditrack.entity.BillSummary;
+import com.airtribe.meditrack.service.BillingService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -83,39 +86,6 @@ public class Main {
         // Add Patients
         patientService.addPatient(patient1);
         patientService.addPatient(patient2);
-        
-        Appointment appointment1 = new Appointment(
-        1001,
-        doctor1,
-        patient1,
-        LocalDate.now(),
-        LocalTime.of(10, 30)
-        );
-
-        Appointment appointment2 = new Appointment(
-                1002,
-                doctor2,
-                patient2,
-                LocalDate.now().plusDays(1),
-                LocalTime.of(14, 0)
-        );
-
-        appointmentService.bookAppointment(appointment1);
-        appointmentService.bookAppointment(appointment2);
-
-        System.out.println("\n----------- Appointments -----------");
-
-        for (Appointment appointment : appointmentService.getAllAppointments()) {
-            System.out.println(appointment);
-        }
-
-        appointmentService.cancelAppointment(1002);
-
-        System.out.println("\n----------- After Cancellation -----------");
-
-        for (Appointment appointment : appointmentService.getAllAppointments()) {
-            System.out.println(appointment);
-        }
 
         // Display Doctors
         System.out.println("----------- Doctors -----------");
@@ -159,9 +129,57 @@ public class Main {
             System.out.println(patient);
         }
 
+        Appointment appointment1 = new Appointment(
+        1001,
+        doctor1,
+        patient1,
+        LocalDate.now(),
+        LocalTime.of(10, 30)
+        );
+
+        Appointment appointment2 = new Appointment(
+                1002,
+                doctor2,
+                patient2,
+                LocalDate.now().plusDays(1),
+                LocalTime.of(14, 0)
+        );
+
+        appointmentService.bookAppointment(appointment1);
+        appointmentService.bookAppointment(appointment2);
+
+
+        System.out.println("\n----------- Appointments -----------");
+
+        for (Appointment appointment : appointmentService.getAllAppointments()) {
+            System.out.println(appointment);
+        }
+
+        appointmentService.cancelAppointment(1002);
+
+        System.out.println("\n----------- After Cancellation -----------");
+
+        for (Appointment appointment : appointmentService.getAllAppointments()) {
+            System.out.println(appointment);
+        }
+        
+        BillingService billingService = new BillingService();
+
+        Bill bill = billingService.generateBill(5001, appointment1);
+
+        System.out.println("\n----------- Bill -----------");
+        System.out.println(bill);
+
+        BillSummary summary = billingService.generateSummary(bill);
+
+        System.out.println("\n----------- Bill Summary -----------");
+        System.out.println(summary);
+
+        
         System.out.println("\n========================================");
         System.out.println(" MediTrack Demo Completed Successfully ");
         System.out.println("========================================");
+
     }
     
 }

@@ -1,4 +1,4 @@
-# 🏥 MediTrack - Clinic & Appointment Management System
+# MediTrack - Clinic & Appointment Management System
 
 MediTrack is a modular **Core Java** application developed to manage a clinic's day-to-day operations, including doctor and patient management, appointment scheduling, billing, and CSV-based data persistence.
 

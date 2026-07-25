@@ -1,0 +1,1 @@
+public static final String BILL_FILE = "data/bills.csv";
